@@ -1,5 +1,11 @@
 import yaml
 
+MEASURE_NAME_MAP = {
+    "Measure A": "A",
+    "Measure B": "B",
+    "Break": "T",
+}
+
 def parse_drum_pattern(pattern_text):
     lines = pattern_text.split('\n')
 
@@ -45,7 +51,7 @@ def parse_drum_pattern(pattern_text):
             pattern_info["time_signature"] = parts[0].strip()
             pattern_info["tempo_range"] = parts[1].strip()
         elif line.startswith("#### "):  # Extract subpattern name
-            measureName = line[5:]
+            measureName = MEASURE_NAME_MAP.get(line[5:], line[5:])
             measure = {}
             measures[measureName] = measure
     
@@ -129,4 +135,6 @@ with open('README.md', 'r') as f:
 
 patterns = parse_drum_pattern(pattern_text)
 # output yaml
+
+print("# Patterns from https://github.com/montoyamoraga/drum-machine-patterns")
 print(yaml.dump({"patterns": patterns}))
