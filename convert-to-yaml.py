@@ -38,7 +38,7 @@ def parse_drum_pattern(pattern_text):
                 measure[drum_name] = ""
             
             measure[drum_name] = transformed_beats
-
+            pattern_info["length"] = len(transformed_beats)
 
         elif line.startswith("4/4"):  # Extract time signature and tempo range
             parts = line.split(',')
